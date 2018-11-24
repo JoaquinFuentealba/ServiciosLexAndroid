@@ -18,6 +18,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -26,13 +28,31 @@ import org.apache.log4j.PropertyConfigurator;
  *
  * @author jfuentealba
  */
-@Path("ServiceLexAbogado")
+@Path("/ServiceLexAbogado")
 public class ServiceLexAbogado {
-        private final static Logger LOGGER = Logger.getLogger(ServiceLexAbogado.class);
+    private final static Logger LOGGER = Logger.getLogger(ServiceLexAbogado.class);
     private static Properties configProps = new Properties();
     private static Properties logProps    = new Properties();
     private static Properties logPropsMail= new Properties();
     private static SqlSession sessionLexAbogado = null;
+    
+        
+    @Context
+    private UriInfo context;
+
+    /**
+     * Creates a new instance of NotariaProduct
+     */
+    public ServiceLexAbogado() throws FileNotFoundException, IOException {
+        System.out.println("com.lexAbogado.webService.ServiceLexAbogado.init()");
+        final String LOG_PROPS = "config/log4j.properties";
+        final String CONF_PROPS = "config/config.properties";
+        logProps.load(new FileInputStream(LOG_PROPS));
+        PropertyConfigurator.configure(logProps);
+        LOGGER.info("LOG SERVICE INITIALIZED SUCCESSFULLY");
+        configProps.load(new FileInputStream(CONF_PROPS));
+        PropertyConfigurator.configure(configProps);
+    }
     
     public void init() throws FileNotFoundException, IOException{
         System.out.println("com.lexAbogado.webService.ServiceLexAbogado.init()");
@@ -48,16 +68,21 @@ public class ServiceLexAbogado {
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     //@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     //@Path("obtenerClientByRut")
-    @Path("loggin")
-    public String Loggin() throws IBatisConfiguratorException{//@WebParam(name = "user") String user, @WebParam(name = "Pass") String pass) throws IBatisConfiguratorException{
-        System.out.println("com.lexAbogado.webService.ServiceLexAbogado.Loggin()");
-        final BaitsConfiguration ic = new BaitsConfiguration();
-        LOGGER.info("Comienza el servicio: "+ new Date());
-        sessionLexAbogado = ic.getSqlSession("development", configProps);
-        final PersistenceLexAbogadoMapper mapperLexAbogado = sessionLexAbogado.getMapper(PersistenceLexAbogadoMapper.class);  
-        UserDataLoggin userLoggin = mapperLexAbogado.getUserLoggin();
-        LOGGER.info(userLoggin.toString());
-        return "Hola Mundo";
+    @Path("/loggin")
+    public UserDataLoggin Loggin() throws IBatisConfiguratorException{//@WebParam(name = "user") String user, @WebParam(name = "Pass") String pass) throws IBatisConfiguratorException{
+        try{
+            final BaitsConfiguration ic = new BaitsConfiguration();
+            LOGGER.info("Comienza el servicio: "+ new Date());
+            sessionLexAbogado = ic.getSqlSession("development", configProps);
+            final PersistenceLexAbogadoMapper mapperLexAbogado = sessionLexAbogado.getMapper(PersistenceLexAbogadoMapper.class);  
+            UserDataLoggin userLoggin = mapperLexAbogado.getUserLoggin();
+            LOGGER.info(userLoggin.toString());
+            return userLoggin;
+        }
+        catch(Exception e){
+            LOGGER.error("No funciona: "+e);
+            return null;
+        }
     }
     
 }

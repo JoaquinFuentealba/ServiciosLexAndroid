@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.latam.vos.inter.persistence.services.MaintenixOperMapper">   
+<mapper namespace="com.lexAbogado.persistence.mapper.PersistenceLexAbogadoMapper">   
  
     <resultMap id="mapParametro" type="com.lexAbogado.domain.UserDataLoggin">
 		<result property="user" column="USER"/>
@@ -12,12 +12,12 @@
 	</resultMap>
 	
 	<select id="getUserLoggin" resultMap="mapParametro" >  <!--parameterType="hashmap"-->
-		select  USER , 
+		SELECT  USER , 
                         PASS , 
                         ID_ROL , 
                         CORREO 
-                from usuarios
-                where   usuarios."USER" like '%Marcelo%' 
+                FROM usuarios
+                WHERE   usuarios."USER" like '%Marcelo%' 
                         and usuarios.CORREO like 'marcelo.martinez.stuardo@gmail.com' 
                         and ROWNUM = 1
 	</select>

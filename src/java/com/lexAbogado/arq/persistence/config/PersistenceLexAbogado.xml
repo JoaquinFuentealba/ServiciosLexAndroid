@@ -21,6 +21,6 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="com/latam/arq/commons/persistence/config/mapping/Maintenix.xml" />
+		<mapper resource="com/lexAbogado/arq/persistence/config/mapper/LoggerAbogado.xml" />
 	</mappers>
 </configuration>
