@@ -6,11 +6,13 @@
 package com.lexAbogado.persistence.mapper;
 
 import com.lexAbogado.domain.UserDataLoggin;
+import java.sql.SQLDataException;
+import java.util.Map;
 
 /**
  *
  * @author jfuentealba
  */
 public interface PersistenceLexAbogadoMapper {
-    public UserDataLoggin getUserLoggin();
+    public UserDataLoggin getUserLoggin(Map<String, Object> parm) throws SQLDataException;
 }

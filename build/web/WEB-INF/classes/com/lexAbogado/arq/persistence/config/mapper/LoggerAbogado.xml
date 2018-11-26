@@ -6,20 +6,21 @@
  
     <resultMap id="mapParametro" type="com.lexAbogado.domain.UserDataLoggin">
 		<result property="user" column="USER"/>
-		<result property="pass" column="PASS"/>
+		<result property="nombreRol" column="NOMBRE_ROL"/>
                 <result property="idRol" column="ID_ROL"/>
                 <result property="correo" column="CORREO"/>
 	</resultMap>
 	
-	<select id="getUserLoggin" resultMap="mapParametro" >  <!--parameterType="hashmap"-->
-		SELECT  USER , 
-                        PASS , 
-                        ID_ROL , 
-                        CORREO 
-                FROM usuarios
-                WHERE   usuarios."USER" like '%Marcelo%' 
-                        and usuarios.CORREO like 'marcelo.martinez.stuardo@gmail.com' 
-                        and ROWNUM = 1
+	<select id="getUserLoggin" resultMap="mapParametro" parameterType="hashmap">
+		SELECT  USUARIOS."USER" , 
+                        TIPO_ROL.NOMBRE_ROL ,
+                        USUARIOS.ID_ROL ,
+                        USUARIOS.CORREO 
+                FROM        usuarios
+                INNER JOIN  TIPO_ROL ON USUARIOS.ID_ROL=TIPO_ROL.ID_ROL
+                WHERE   usuarios."USER" like #{user}
+                AND     usuarios.CORREO like #{pass} 
+                AND     ROWNUM = 1
 	</select>
  
 </mapper>   

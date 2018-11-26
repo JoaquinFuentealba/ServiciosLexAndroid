@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jfuentealba/Documents/NetBeansProjects/ServiciosLexAndroid/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/jfuentealba/Documents/NetBeansProjects/ServiciosLexAndroid/src/java/com/lexAbogado/webService/ServiceLexAbogado.java</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/config/log4j.properties</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/web/test-resbeans.html</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/src/java/com/lexAbogado/webService/ServiceLexAbogado.java</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/src/java/com/lexAbogado/arq/persistence/config/mapper/LoggerAbogado.xml</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/web/WEB-INF/weblogic.xml</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/src/java/com/lexAbogado/arq/persistence/config/PersistenceLexAbogado.xml</file>
+            <file>file:/C:/Users/Joaquin/Google%20Drive/DUOC/2018-2/Portafolio/Programas/ServiciosLexAndroid/src/java/com/lexAbogado/persistence/config/BaitsConfiguration.java</file>
         </group>
     </open-files>
 </project-private>

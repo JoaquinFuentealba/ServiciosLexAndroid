@@ -6,6 +6,7 @@
 package com.lexAbogado.webService;
 
 import com.lexAbogado.domain.UserDataLoggin;
+import com.lexAbogado.domain.LoginData;
 import com.lexAbogado.persistence.config.BaitsConfiguration;
 import com.lexAbogado.persistence.config.IBatisConfiguratorException;
 import com.lexAbogado.persistence.mapper.PersistenceLexAbogadoMapper;
@@ -13,8 +14,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -54,7 +57,7 @@ public class ServiceLexAbogado {
         PropertyConfigurator.configure(configProps);
     }
     
-    public void init() throws FileNotFoundException, IOException{
+    /*public void init() throws FileNotFoundException, IOException{
         System.out.println("com.lexAbogado.webService.ServiceLexAbogado.init()");
         final String LOG_PROPS = "config/log4j.properties";
         final String CONF_PROPS = "config/config.properties";
@@ -63,25 +66,48 @@ public class ServiceLexAbogado {
         LOGGER.info("LOG SERVICE INITIALIZED SUCCESSFULLY");
         configProps.load(new FileInputStream(CONF_PROPS));
         PropertyConfigurator.configure(configProps);
-    }
-    @GET
+    }*/
+    @POST
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    //@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     //@Path("obtenerClientByRut")
     @Path("/loggin")
-    public UserDataLoggin Loggin() throws IBatisConfiguratorException{//@WebParam(name = "user") String user, @WebParam(name = "Pass") String pass) throws IBatisConfiguratorException{
+    public UserDataLoggin Loggin(LoginData login) throws IBatisConfiguratorException{//@WebParam(name = "user") String user, @WebParam(name = "Pass") String pass) throws IBatisConfiguratorException{
+        UserDataLoggin userLoggin = new UserDataLoggin();
         try{
             final BaitsConfiguration ic = new BaitsConfiguration();
             LOGGER.info("Comienza el servicio: "+ new Date());
             sessionLexAbogado = ic.getSqlSession("development", configProps);
             final PersistenceLexAbogadoMapper mapperLexAbogado = sessionLexAbogado.getMapper(PersistenceLexAbogadoMapper.class);  
-            UserDataLoggin userLoggin = mapperLexAbogado.getUserLoggin();
+            Map<String, Object> parm = new HashMap<>();
+            parm.put("user", login.getUser());
+            parm.put("pass", login.getPass());
+            userLoggin = mapperLexAbogado.getUserLoggin(parm);
             LOGGER.info(userLoggin.toString());
+            userLoggin.setCodigo(0);
+            userLoggin.setMensaje("success");
+            return userLoggin;
+        }
+        catch(NullPointerException e){
+            userLoggin = new UserDataLoggin();
+            LOGGER.error("No trajo data: " +e);
+            userLoggin.setCodigo(-1);
+            userLoggin.setMensaje(e.toString());
+            return userLoggin;
+        }
+        catch(IBatisConfiguratorException e){
+            userLoggin = new UserDataLoggin();
+            LOGGER.error("IBatisConfiguratorException: " +e);
+            userLoggin.setCodigo(-2);
+            userLoggin.setMensaje(e.toString());
             return userLoggin;
         }
         catch(Exception e){
-            LOGGER.error("No funciona: "+e);
-            return null;
+            userLoggin = new UserDataLoggin();
+            LOGGER.error("Exception: " +e);
+            userLoggin.setCodigo(-3);
+            userLoggin.setMensaje(e.toString());
+            return userLoggin;
         }
     }
     
