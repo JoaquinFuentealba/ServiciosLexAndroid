@@ -12,15 +12,20 @@
 	</resultMap>
 	
 	<select id="getUserLoggin" resultMap="mapParametro" parameterType="hashmap">
-		SELECT  USUARIOS."USER" , 
-                        TIPO_ROL.NOMBRE_ROL ,
-                        USUARIOS.ID_ROL ,
-                        USUARIOS.CORREO 
-                FROM        usuarios
-                INNER JOIN  TIPO_ROL ON USUARIOS.ID_ROL=TIPO_ROL.ID_ROL
-                WHERE   usuarios."USER" like #{user}
-                AND     usuarios.CORREO like #{pass} 
-                AND     ROWNUM = 1
+		SELECT            
+                                    US."USER" , 
+                                    TR.NOMBRE_ROL ,
+                                    US.ID_ROL ,
+                                    US.CORREO 
+                FROM                USUARIOS US
+                INNER JOIN          TIPO_ROL TR ON US.ID_ROL=TR.ID_ROL
+                WHERE             
+                                    US."USER" like #{user}
+                AND                 
+                                    US."USER" like #{pass}
+                AND                 
+                                    TR.ID_ROL = 41
+                AND                 
+                                    ROWNUM = 1
 	</select>
- 
 </mapper>   

@@ -17,8 +17,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import javax.jws.WebParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -73,6 +75,8 @@ public class ServiceLexAbogado {
     //@Path("obtenerClientByRut")
     @Path("/loggin")
     public UserDataLoggin Loggin(LoginData login) throws IBatisConfiguratorException{//@WebParam(name = "user") String user, @WebParam(name = "Pass") String pass) throws IBatisConfiguratorException{
+        
+        
         UserDataLoggin userLoggin = new UserDataLoggin();
         try{
             final BaitsConfiguration ic = new BaitsConfiguration();
