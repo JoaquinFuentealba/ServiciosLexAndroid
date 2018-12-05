@@ -17,6 +17,7 @@ public class UserDataLoggin extends Control{
     private String nombreRol;
     private String idRol;
     private String correo;
+    private String idUser;
 
     public String getUser() {
         return user;
@@ -50,6 +51,15 @@ public class UserDataLoggin extends Control{
         this.nombreRol = nombreRol;
     }
 
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    
     @Override
     public String toString() {
         return "UserDataLoggin{" + "user=" + user + ", nombreRol=" + nombreRol + ", idRol=" + idRol + ", correo=" + correo + '}';

@@ -9,6 +9,7 @@
 		<result property="nombreRol" column="NOMBRE_ROL"/>
                 <result property="idRol" column="ID_ROL"/>
                 <result property="correo" column="CORREO"/>
+                <result property="idUser" column="ID_USUARIO"/>
 	</resultMap>
 	
 	<select id="getUserLoggin" resultMap="mapParametro" parameterType="hashmap">
@@ -16,7 +17,8 @@
                                     US."USER" , 
                                     TR.NOMBRE_ROL ,
                                     US.ID_ROL ,
-                                    US.CORREO 
+                                    US.CORREO ,
+                                    US.ID_USUARIO
                 FROM                USUARIOS US
                 INNER JOIN          TIPO_ROL TR ON US.ID_ROL=TR.ID_ROL
                 WHERE             
@@ -28,4 +30,19 @@
                 AND                 
                                     ROWNUM = 1
 	</select>
+        <resultMap id="mapParametroPresupuestos" type="com.lexAbogado.domain.UserDataLoggin">
+		<result property="nombre" column="NOMBRE,"/>
+		<result property="codSolicitud" column="COD_SOLICITUD"/>
+                <result property="estadoAvance" column="ESTADO_AVANCE"/>
+                
+	</resultMap>
+        <select id="getPresupuestoByUserId" resultMap="mapParametroPresupuestos" parameterType="hashmap">
+		SELECT CA.NOMBRE, PRE.COD_SOLICITUD, PRE.ESTADO_AVANCE
+                FROM  CLIENTES CL 
+                INNER JOIN USUARIOS US ON CL.ID_USUARIO = US.ID_USUARIO
+                INNER JOIN PRESUPUESTO PRE ON PRE.ID_CLIENTE = CL.ID_CLIENTE
+                INNER JOIN CAUSALES CA ON CA.ID_CAUSAL = PRE.ID_CAUSAL
+                WHERE US.ID_USUARIO = #{idUsuario}
+	</select>
+        
 </mapper>   

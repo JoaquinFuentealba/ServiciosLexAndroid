@@ -7,6 +7,7 @@ package com.lexAbogado.webService;
 
 import com.lexAbogado.domain.UserDataLoggin;
 import com.lexAbogado.domain.LoginData;
+import com.lexAbogado.domain.Presupuestos;
 import com.lexAbogado.persistence.config.BaitsConfiguration;
 import com.lexAbogado.persistence.config.IBatisConfiguratorException;
 import com.lexAbogado.persistence.mapper.PersistenceLexAbogadoMapper;
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import javax.jws.WebParam;
@@ -113,6 +115,21 @@ public class ServiceLexAbogado {
             userLoggin.setMensaje(e.toString());
             return userLoggin;
         }
+    }
+    
+    @POST
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    //@Path("obtenerClientByRut")
+    @Path("/getAllPresupuesto")
+    public List<Presupuestos> getAllPresupuesto(UserDataLoggin userDataLoggin) throws IBatisConfiguratorException{
+        final BaitsConfiguration ic = new BaitsConfiguration();
+        LOGGER.info("Comienza el servicio: "+ new Date());
+        sessionLexAbogado = ic.getSqlSession("development", configProps);
+        final PersistenceLexAbogadoMapper mapperLexAbogado = sessionLexAbogado.getMapper(PersistenceLexAbogadoMapper.class);  
+        Map<String, Object> parm = new HashMap<>();
+        parm.put("idUsuario", userDataLoggin.getIdUser());
+        return mapperLexAbogado.getPresupuestoByUserId(parm);
     }
     
 }
