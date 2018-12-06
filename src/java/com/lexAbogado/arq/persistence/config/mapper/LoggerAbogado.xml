@@ -30,13 +30,13 @@
                 AND                 
                                     ROWNUM = 1
 	</select>
-        <resultMap id="mapParametroPresupuestos" type="com.lexAbogado.domain.UserDataLoggin">
+        <resultMap id="mapParametroPre" type="com.lexAbogado.domain.UserDataLoggin">
 		<result property="nombre" column="NOMBRE,"/>
 		<result property="codSolicitud" column="COD_SOLICITUD"/>
                 <result property="estadoAvance" column="ESTADO_AVANCE"/>
                 
 	</resultMap>
-        <select id="getPresupuestoByUserId" resultMap="mapParametroPresupuestos" parameterType="hashmap">
+        <select id="getPresupuestoByUserId" resultMap="mapParametroPre" parameterType="hashmap">
 		SELECT CA.NOMBRE, PRE.COD_SOLICITUD, PRE.ESTADO_AVANCE
                 FROM  CLIENTES CL 
                 INNER JOIN USUARIOS US ON CL.ID_USUARIO = US.ID_USUARIO
